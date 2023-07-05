@@ -4,7 +4,7 @@ import styles from './Home.module.css';
 
 const Home = () => {
   return (
-    <header className={styles.header}>
+    <header className={styles.Home}>
       <nav className={styles.nav}>
         <ul>
           <li>
