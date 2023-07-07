@@ -1,66 +1,32 @@
-const API_KEY = 'dc163273b152eeeb36e55a0d84f6bc0d';
+import axios from 'axios';
 
-export const getMovieReviews = async movieId => {
-  const url = `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${API_KEY}`;
+export const API_KEY = 'dc163273b152eeeb36e55a0d84f6bc0d';
+export const BASE_URL = 'https://api.themoviedb.org/3';
 
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Błąd podczas pobierania recenzji:', error);
-    return null;
-  }
+axios.defaults.baseURL = BASE_URL;
+axios.defaults.params = {
+  api_key: API_KEY,
 };
 
-export const getTrendingMovies = async () => {
-  const url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
-
+const getTrendingMovies = async () => {
   try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.results;
+    const response = await axios.get(`/trending/movie/day`);
+    return response.data.results;
   } catch (error) {
     console.error('Błąd podczas pobierania najpopularniejszych filmów:', error);
-    return [];
+    throw error;
   }
 };
 
-export const searchMovies = async query => {
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`;
-
+//pobranie informacji o filmie na podstawie jego ID
+const getMovieDetails = async movieId => {
   try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.results;
+    const response = await axios.get(`/movie/${movieId}`);
+    return response.data;
   } catch (error) {
-    console.error('Błąd podczas wyszukiwania filmów:', error);
-    return [];
+    console.error('Błąd podczas pobierania informacji o filmie:', error);
+    throw error;
   }
 };
 
-export const getMovieDetails = async movieId => {
-  const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Błąd podczas pobierania szczegółów filmu:', error);
-    return null;
-  }
-};
-
-export const getMovieCredits = async movieId => {
-  const url = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`;
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Błąd podczas pobierania informacji o obsadzie:', error);
-    return null;
-  }
-};
+export { getTrendingMovies, getMovieDetails };
