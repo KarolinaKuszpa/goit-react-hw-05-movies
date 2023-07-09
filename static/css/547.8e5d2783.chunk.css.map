@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/547.8e5d2783.chunk.css","mappings":"AAAA,kBACE,eACF,CAEA,uBACE,kBACF,CAEA,uBACE,eACF,CAEA,4BACE,UACF","sources":["components/Cast.module.css"],"sourcesContent":[".cast {\n  margin-top: 20px;\n}\n\n.cast-item {\n  margin-bottom: 10px;\n}\n\n.cast-name {\n  font-weight: bold;\n}\n\n.cast-character {\n  color: #888;\n}\n"],"names":[],"sourceRoot":""}
