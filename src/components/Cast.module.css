@@ -1,15 +1,15 @@
-.home {
+.cast {
   margin-top: 20px;
 }
 
-.movie-item {
+.cast-item {
   margin-bottom: 10px;
 }
 
-.movie-title {
+.cast-name {
   font-weight: bold;
 }
 
-.movie-overview {
-  color: #333;
+.cast-character {
+  color: #888;
 }

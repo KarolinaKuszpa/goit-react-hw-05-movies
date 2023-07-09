@@ -1,35 +1,36 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { getMovieCast } from './Services/Api';
+import styles from './Cast.module.css';
 
-function Cast() {
+const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
 
-  const fetchMovieCredits = useCallback(async () => {
+  const fetchMovieCast = useCallback(async () => {
     try {
-      const response = await axios.get(`/movie/${movieId}/credits`);
-      setCast(response.data.cast);
+      const castData = await getMovieCast(movieId);
+      setCast(castData);
     } catch (error) {
       console.log(error);
     }
   }, [movieId]);
 
   useEffect(() => {
-    fetchMovieCredits();
-  }, [fetchMovieCredits]);
+    fetchMovieCast();
+  }, [fetchMovieCast]);
 
   return (
     <div>
-      <h2>Cast</h2>
+      <h2 className={styles.title}>Cast</h2>
       {cast.map(person => (
-        <div key={person.id}>
-          <h3>{person.name}</h3>
-          <p>{person.character}</p>
+        <div key={person.id} className={styles.person}>
+          <h3 className={styles.name}>{person.name}</h3>
+          <p className={styles.character}>{person.character}</p>
         </div>
       ))}
     </div>
   );
-}
+};
 
 export default Cast;

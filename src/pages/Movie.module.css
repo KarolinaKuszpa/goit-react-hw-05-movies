@@ -1,0 +1,12 @@
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+input[type='text'] {
+  margin-right: 10px;
+}
+
+button {
+  padding: 5px 10px;
+}

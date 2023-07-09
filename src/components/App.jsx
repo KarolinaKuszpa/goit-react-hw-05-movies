@@ -1,51 +1,47 @@
-import Home from '../../pages/Home';
-import Movies from '../../pages/Movies';
-import MovieDetails from '../../pages/MovieDetails';
-import Cast from '../../components/Cast';
-import Reviews from '../../components/Reviews';
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Home from '../pages/Home';
+import Movies from '../pages/Movies';
+import Layout from '../pages/Layout';
 
-const Movies = React.lazy(() => import('./pages/Movies'));
-const MovieDetails = React.lazy(() => import('./pages/MovieDetails'));
-const Cast = React.lazy(() => import('./components/Cast'));
-const Reviews = React.lazy(() => import('./components/Reviews'));
+const MovieDetails = lazy(() => import('../pages/MovieDetails'));
+const Cast = lazy(() => import('./Cast'));
+const Reviews = lazy(() => import('./Reviews'));
+
 const App = () => {
   return (
-    <Router>
-      <div>
-        {/* ... */}
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>{/* ... */}</Routes>
-        </Suspense>
-      </div>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route
+          path="/movies/:movieId"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <MovieDetails />
+            </Suspense>
+          }
+        >
+          <Route
+            path="cast"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Cast />
+              </Suspense>
+            }
+          />
+          <Route
+            path="reviews"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Reviews />
+              </Suspense>
+            }
+          />
+        </Route>
+      </Route>
+    </Routes>
   );
 };
 
-const routes = [
-  {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/movies',
-    element: <Movies />,
-  },
-  {
-    path: '/movies/:movieId',
-    element: <MovieDetails />,
-    children: [
-      {
-        path: 'cast',
-        element: <Cast />,
-      },
-      {
-        path: 'reviews',
-        element: <Reviews />,
-      },
-    ],
-  },
-];
-
-export default routes;
+export default App;

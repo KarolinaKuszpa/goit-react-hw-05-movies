@@ -1,15 +1,15 @@
-.home {
+.reviews {
   margin-top: 20px;
 }
 
-.movie-item {
+.review-item {
   margin-bottom: 10px;
 }
 
-.movie-title {
+.review-author {
   font-weight: bold;
 }
 
-.movie-overview {
+.review-content {
   color: #333;
 }

@@ -1,0 +1,37 @@
+.movie-details {
+  display: flex;
+  margin-top: 20px;
+}
+
+.poster-container {
+  flex: 0 0 200px;
+  margin-right: 20px;
+}
+
+.poster {
+  height: auto;
+}
+
+.info {
+  flex: 1;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.overview {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.links {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.active-link {
+  font-weight: bold;
+}

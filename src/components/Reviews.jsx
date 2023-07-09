@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { getMovieReviews } from './Services/Api';
+import styles from './Reviews.module.css';
 
-function Reviews() {
+const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
 
   const fetchMovieReviews = useCallback(async () => {
     try {
-      const response = await axios.get(`/movie/${movieId}/reviews`);
-      setReviews(response.data.results);
+      const reviewsData = await getMovieReviews(movieId);
+      setReviews(reviewsData);
     } catch (error) {
       console.log(error);
     }
@@ -21,15 +22,15 @@ function Reviews() {
 
   return (
     <div>
-      <h1>Reviews</h1>
+      <h1 className={styles.title}>Reviews</h1>
       {reviews.map(review => (
-        <div key={review.id}>
-          <h3>{review.author}</h3>
-          <p>{review.content}</p>
+        <div key={review.id} className={styles.review}>
+          <h3 className={styles.author}>{review.author}</h3>
+          <p className={styles.content}>{review.content}</p>
         </div>
       ))}
     </div>
   );
-}
+};
 
 export default Reviews;
